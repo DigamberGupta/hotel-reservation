@@ -17,7 +17,7 @@
 
 ### Website Screenshot
 
-* ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/sign_up_page.png)
-* ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/login_page.png)
-* ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/home_page.png)
-* ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/booking_page.png)
+ ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/sign_up_page.png)
+ ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/login_page.png)
+ ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/home_page.png)
+ ![Screenshot of Counter service SwaggerUI](https://github.com/DigamberGupta/hotel-reservation/blob/master/src/main/resources/static/images/booking_page.png)
