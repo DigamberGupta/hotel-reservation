@@ -3,6 +3,7 @@ package com.digambergupta.hotelreservation.persistance.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -60,26 +61,16 @@ public class Room {
 			return true;
 		}
 
-		List<Reservation> collect = reservations.stream().filter(
-				reservation -> (reservation.getCheckInDate().compareTo(checkOut) < 0 && reservation.getCheckOutDate().compareTo(checkIn) < 0) || (
-						reservation.getCheckInDate().compareTo(checkOut) > 0 && reservation.getCheckOutDate().compareTo(checkIn) > 0)).collect(
-				Collectors.toList());
+		final List<Reservation> collect = reservations.stream()
+				.filter(getReservationPredicate(checkIn, checkOut))
+				.collect(Collectors.toList());
 
-		if (collect.size() == reservations.size()) {
-			return true;
-		}
+		return collect.size() == reservations.size();
+	}
 
-/*		boolean isAvailable = true;
-		for(Reservation r: reservations){
-			if(r.getCheckInDate().compareTo(checkOut)<=0 && r.getCheckOutDate().compareTo(checkIn)<=0)
-				return true;
-		}*/
-
-/*		if (collect.size() == 0) {
-			return true;
-		}*/
-
-		return false;
+	private Predicate<Reservation> getReservationPredicate(LocalDate checkIn, LocalDate checkOut) {
+		return reservation -> (reservation.getCheckInDate().compareTo(checkOut) < 0 && reservation.getCheckOutDate().compareTo(checkIn) < 0) || (
+				reservation.getCheckInDate().compareTo(checkOut) > 0 && reservation.getCheckOutDate().compareTo(checkIn) > 0);
 	}
 
 }
