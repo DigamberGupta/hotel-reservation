@@ -23,15 +23,15 @@ public class ReservationValidator {
 			return true;
 		}
 
-		if (LocalDate.now().compareTo(checkInDate) > 0) {
+		if (checkInDate.toEpochDay() < LocalDate.now().toEpochDay() || checkOutDate.toEpochDay() < LocalDate.now().toEpochDay()) {
 			return true;
 		}
 
-		if (checkInDate.compareTo(lastBookingDate) > 0) {
+		if (checkOutDate.toEpochDay() < checkInDate.toEpochDay()) {
 			return true;
 		}
 
-		return checkOutDate.compareTo(lastBookingDate) > 0;
+		return checkInDate.toEpochDay() > lastBookingDate.toEpochDay() || checkOutDate.toEpochDay() > lastBookingDate.toEpochDay();
 	}
 
 	public int getMaxAvailableRoomForBooking() {

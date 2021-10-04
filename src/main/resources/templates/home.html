@@ -20,7 +20,7 @@
 				<a class="nav-link" th:href="@{/}">Home</a>
 			</li>
 			<li class="nav-item active">
-				<a class="nav-link" th:href="@{/booking}">Booking</a>
+				<a class="nav-link" th:href="@{/reservation}">Booking</a>
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0" method="post" action="#" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
