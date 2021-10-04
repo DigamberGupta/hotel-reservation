@@ -3,6 +3,7 @@ package com.digambergupta.hotelreservation.persistance.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,7 @@ public class Room {
 		this.reservations = reservations;
 	}
 
-	public Reservation addReservation(final User user, final LocalDate checkInDate, final LocalDate checkOutDate) {
+	public Optional<Reservation> addReservation(final User user, final LocalDate checkInDate, final LocalDate checkOutDate) {
 		if (checkInDate.compareTo(LocalDate.now()) >= 0 && checkOutDate.compareTo(LocalDate.now().minusDays(1L)) >= 0) {
 			if (isRoomAvailable(checkInDate, checkOutDate)) {
 				final Reservation reservation = new Reservation();
@@ -50,10 +51,10 @@ public class Room {
 				reservation.setAccepted(Boolean.TRUE);
 				reservation.setUser(user);
 				reservations.add(reservation);
-				return reservation;
+				return Optional.of(reservation);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	public boolean isRoomAvailable(final LocalDate checkIn, final LocalDate checkOut) {

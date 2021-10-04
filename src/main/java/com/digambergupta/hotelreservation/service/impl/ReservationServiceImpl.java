@@ -2,6 +2,7 @@ package com.digambergupta.hotelreservation.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,17 +75,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 	private boolean createNewAndAddReservation(LocalDate checkInDate, LocalDate checkOutDate, User user, List<Room> rooms) {
 		if (rooms.size() < reservationValidator.getMaxAvailableRoomForBooking()) {
-			Room room = roomRepository.save(new Room());
-			final Reservation reservation = new Reservation();
-			reservation.setRoom(room);
-			reservation.setCheckInDate(checkInDate);
-			reservation.setCheckOutDate(checkOutDate);
-			reservation.setAccepted(Boolean.TRUE);
-			reservation.setUser(user);
-			room.getReservations().add(reservation);
-			user.addReservation(reservation);
-			reservationRepository.save(reservation);
-			roomRepository.save(room);
+			final Room room = roomRepository.save(new Room());
+			addReservationForCreatedRooms(checkInDate, checkOutDate, user, List.of(room));
 			return true;
 		}
 		return false;
@@ -92,14 +84,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 	private boolean addReservationForCreatedRooms(LocalDate checkInDate, LocalDate checkOutDate, User user, List<Room> rooms) {
 		for (Room room : rooms) {
-			if (room.isRoomAvailable(checkInDate, checkOutDate)) {
-				final Reservation reservation = room.addReservation(user, checkInDate, checkOutDate);
-				if (reservation != null) {
-					user.addReservation(reservation);
-					reservationRepository.save(reservation);
-					roomRepository.save(room);
-					return true;
-				}
+			final Optional<Reservation> reservation = room.addReservation(user, checkInDate, checkOutDate);
+			if (reservation.isPresent()) {
+				user.addReservation(reservation.get());
+				reservationRepository.save(reservation.get());
+				roomRepository.save(room);
+				return true;
 			}
 		}
 		return false;
