@@ -9,8 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "reservation")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Reservation {
 
 	@Id
@@ -29,51 +36,4 @@ public class Reservation {
 	@ManyToOne
 	private Room room;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public LocalDate getCheckInDate() {
-		return checkInDate;
-	}
-
-	public void setCheckInDate(LocalDate starDate) {
-		this.checkInDate = starDate;
-	}
-
-	public LocalDate getCheckOutDate() {
-		return checkOutDate;
-	}
-
-	public void setCheckOutDate(LocalDate endDate) {
-		this.checkOutDate = endDate;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public boolean isAccepted() {
-		return accepted;
-	}
-
-	public void setAccepted(boolean accepted) {
-		this.accepted = accepted;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
 }

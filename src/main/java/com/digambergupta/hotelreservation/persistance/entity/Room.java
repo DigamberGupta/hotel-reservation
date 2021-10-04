@@ -14,8 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "room")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Room {
 
 	@Id
@@ -24,22 +31,6 @@ public class Room {
 
 	@ManyToMany
 	private List<Reservation> reservations = new ArrayList<>();
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public List<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
 
 	public Optional<Reservation> addReservation(final User user, final LocalDate checkInDate, final LocalDate checkOutDate) {
 		if (checkInDate.compareTo(LocalDate.now()) >= 0 && checkOutDate.compareTo(LocalDate.now().minusDays(1L)) >= 0) {
